@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/hankweii.github.io/TaiwanWeather/static/css/main.f6a23ee4.css",
-    "main.js": "/hankweii.github.io/TaiwanWeather/static/js/main.4c34577a.js",
-    "index.html": "/hankweii.github.io/TaiwanWeather/index.html",
-    "main.f6a23ee4.css.map": "/hankweii.github.io/TaiwanWeather/static/css/main.f6a23ee4.css.map",
-    "main.4c34577a.js.map": "/hankweii.github.io/TaiwanWeather/static/js/main.4c34577a.js.map"
+    "main.css": "./static/css/main.f6a23ee4.css",
+    "main.js": "./static/js/main.2d0ca3cc.js",
+    "index.html": "./index.html",
+    "main.f6a23ee4.css.map": "./static/css/main.f6a23ee4.css.map",
+    "main.2d0ca3cc.js.map": "./static/js/main.2d0ca3cc.js.map"
   },
   "entrypoints": [
     "static/css/main.f6a23ee4.css",
-    "static/js/main.4c34577a.js"
+    "static/js/main.2d0ca3cc.js"
   ]
 }
