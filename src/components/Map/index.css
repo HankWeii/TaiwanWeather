@@ -1,0 +1,22 @@
+svg {
+    height: 100vh;
+}
+
+path {
+    stroke: white;
+    fill: transparent;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+path:hover {
+    fill: #B99362;
+    transform: translate(-3px,-3px);
+}
+
+* {
+    font-family: 'Noto Serif JP', serif;
+    font-family: 'Unbounded', 'cursive';
+}
+
+

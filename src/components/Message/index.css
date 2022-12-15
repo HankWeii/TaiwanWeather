@@ -1,0 +1,31 @@
+.wearth {
+    transform: translate(150px,0);
+    font-size: 50px;
+    color: gray;
+}
+
+.hr {
+    width: 200px;
+    position: absolute;
+    right: 30vw
+}
+
+.message {
+    color: white;
+    font-size: 40px;
+}
+
+.message h3 {
+    color:rgb(0, 60, 255)
+}
+
+.wearth::before {
+    content: '';
+    border-bottom: 1px white solid;
+    width: 200px;
+    height: 10px;
+    position: absolute;
+    top: 100%;
+    left: 100px;
+    border-width: 2px;
+}
