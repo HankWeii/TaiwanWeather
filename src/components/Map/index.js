@@ -6,26 +6,37 @@ import PubSub from 'pubsub-js'
 import './index.css'
 
 const Taiwan = ()=>{
+    const [apiObj, setA] = useState([])
     const mouseEnter = (e)=>{
-        const today = new Date()
-        const now = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + today.getDate())
-        const range = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + (today.getDate()+1))
-        axios.get(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-8A5C0ED1-8921-44D2-85DA-D0E1673E274D&format=JSON&elementName=&timeFrom=${now}T18%3A00%3A00&timeTo=${range}T06%3A00%3A00`).then(
-            response => {
-                const weatherData = (response.data.records.location).filter((obj)=>{
-                    return e.target.id === obj.locationName
-                })
-                const apiObj = {
-                    city: e.target.id,
-                    weather: weatherData[0].weatherElement[0].time[0].parameter.parameterName,
-                    rainy: weatherData[0].weatherElement[1].time[0].parameter.parameterName,
-                    minTem: weatherData[0].weatherElement[2].time[0].parameter.parameterName,
-                    maxTem: weatherData[0].weatherElement[4].time[0].parameter.parameterName
-                }
-                PubSub.publish('api', apiObj)
-            },
-            error => console.log('失敗',error.message)
-        )
+        const search = apiObj.filter((obj)=>{
+            return obj.city === e.target.id
+        })
+        if(search.length === 0) {
+            const today = new Date()
+            const now = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + today.getDate())
+            const range = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + (today.getDate()+1))
+            axios.get(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-8A5C0ED1-8921-44D2-85DA-D0E1673E274D&format=JSON&elementName=&timeFrom=${now}T18%3A00%3A00&timeTo=${range}T06%3A00%3A00`).then(
+                response => {
+                    const nowMouseOnCity = (response.data.records.location).filter((obj)=>{
+                        return e.target.id === obj.locationName
+                    })
+                    console.log(nowMouseOnCity)
+                    const [{locationName:city,weatherElement:[
+                        {time:[{parameter:{parameterName:weather}}]},
+                        {time:[{parameter:{parameterName:rainy}}]},
+                        {time:[{parameter:{parameterName:minTem}}]},
+                        {},
+                        {time:[{parameter:{parameterName:maxTem}}]}]}] = nowMouseOnCity
+                    const wearthData = {city,weather,rainy,minTem,maxTem}
+                    setA([wearthData,...apiObj])
+                    PubSub.publish('api', wearthData)
+                },
+                error => console.log('失敗',error.message)
+            )
+            return
+        }
+        const nowMouseOnCityRepeat = apiObj.filter(obj=> obj.city === e.target.id)
+        PubSub.publish('api', nowMouseOnCityRepeat[0])
     }
     return(
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"

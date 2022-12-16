@@ -19,7 +19,7 @@ export default function Message() {
             {
                 apiData && 
                 <div className='message'>
-                    <h2>{apiData.city}</h2>
+                    <h1>{apiData.city}</h1>
                     <h2 style={{color: apiData.weather.search('雨') < 0 && 'yellow' }}>{apiData.weather}</h2>
                     <h3>降雨機率 : {apiData.rainy} %</h3>
                     <h3 style={{color: apiData.maxTem > 28 ? 'red' : 'aqua'}}>{apiData.minTem} ~ {apiData.maxTem} °C</h3>
