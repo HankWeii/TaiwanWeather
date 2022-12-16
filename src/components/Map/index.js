@@ -7,14 +7,16 @@ import './index.css'
 
 const Taiwan = ()=>{
     const [apiObj, setA] = useState([])
+    const [date, setDate] = useState()
     const mouseEnter = (e)=>{
+        const today = new Date()
+        const now = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + today.getDate())
+        setDate(now)
+        const range = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + (today.getDate()+1))
         const search = apiObj.filter((obj)=>{
             return obj.city === e.target.id
         })
-        if(search.length === 0) {
-            const today = new Date()
-            const now = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + today.getDate())
-            const range = (today.getFullYear()+'-'+ (today.getMonth()+1) +'-' + (today.getDate()+1))
+        if(search.length === 0 || date !== now) {
             axios.get(`https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-8A5C0ED1-8921-44D2-85DA-D0E1673E274D&format=JSON&elementName=&timeFrom=${now}T18%3A00%3A00&timeTo=${range}T06%3A00%3A00`).then(
                 response => {
                     const nowMouseOnCity = (response.data.records.location).filter((obj)=>{
